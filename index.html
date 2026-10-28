@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Growth Toolkit</title>
+<style>
+:root{--bg:#f5f7fb;--surface:#fff;--text:#20263a;--muted:#788197;--border:#e5e9f2;--primary:#5956d6;--primary-light:#efefff;--green:#178564;--amber:#a66b12;--red:#b64053}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,Segoe UI,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:235px;background:#fff;border-right:1px solid var(--border);padding:24px 15px;display:flex;flex-direction:column;z-index:4}.brand{display:flex;align-items:center;gap:11px;padding:0 8px 30px}.brand-icon{width:39px;height:39px;border-radius:12px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:21px;font-weight:800}.brand strong{display:block;font-size:16px}.brand small{display:block;color:var(--muted);font-size:11px}.nav-label,.eyebrow{font-size:10px;letter-spacing:1.2px;font-weight:800;color:var(--muted)}.nav-label{padding:0 12px 10px}.nav-item{border:0;background:transparent;color:#6e778e;text-align:left;padding:11px 12px;border-radius:9px;margin:2px 0;font-weight:650}.nav-item:hover{background:#f7f7ff}.nav-item.active{background:var(--primary-light);color:var(--primary)}.side-note{margin-top:auto;background:#f8f9fc;border:1px solid var(--border);border-radius:10px;padding:12px;font-size:12px;font-weight:700}.side-note p{font-size:11px;color:var(--muted);font-weight:400;margin:6px 0 0}.dot{display:inline-block;width:7px;height:7px;background:#dfa842;border-radius:50%;margin-right:6px}.main{margin-left:235px;padding:28px 32px 18px;max-width:1700px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:25px}h1{font-size:25px;letter-spacing:-.7px;margin:4px 0 0}.top-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag,.chip{display:inline-flex;padding:5px 9px;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:.3px;background:#fff4df;color:var(--amber)}.chip{background:#e9f8f1;color:var(--green);letter-spacing:0}.btn{border:1px solid var(--border);background:#fff;color:#535d73;border-radius:8px;padding:9px 13px;font-size:12px;font-weight:750}.btn:hover{filter:brightness(.98);transform:translateY(-1px)}.btn-primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn-danger{color:var(--red)}.full{width:100%;margin-top:8px}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(115deg,#4542b8,#7775ed);color:white;padding:27px 29px;border-radius:15px;display:flex;justify-content:space-between;gap:15px;align-items:center}.hero .eyebrow{color:#d8d7ff}.hero h2{font-size:clamp(23px,3vw,32px);line-height:1.2;letter-spacing:-.8px;margin:10px 0}.hero p{color:#e7e7ff;margin:0;font-size:13px}.hero-icon{font-size:42px;border:1px solid #ffffff55;border-radius:17px;width:64px;height:64px;display:grid;place-items:center}.section-heading,.panel-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.section-heading{margin:25px 0 13px}h3{font-size:15px;margin:0;letter-spacing:-.2px}.section-heading p,.panel-heading p,.intro p{color:var(--muted);font-size:12px;margin:4px 0 0}.muted{color:var(--muted);font-size:11px}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.metric,.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 18px #20263a08}.metric{padding:16px;min-width:0}.metric-label{display:block;color:var(--muted);font-size:11px;font-weight:650}.metric strong{display:block;font-size:27px;letter-spacing:-.8px;margin:8px 0 3px}.metric small{color:var(--muted);font-size:10px}.progress{height:5px;background:#eeeff6;border-radius:9px;overflow:hidden;margin-top:12px}.progress div{height:100%;width:0;background:var(--primary);transition:width .25s}.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:14px;margin-top:15px}.panel{padding:18px;margin-bottom:14px;min-width:0}.panel-heading{margin-bottom:16px}.channel-chart{display:flex;flex-direction:column;gap:14px}.channel-row{display:grid;grid-template-columns:125px 1fr 32px;gap:8px;align-items:center;font-size:11px}.channel-row span:first-child{color:#606980;overflow-wrap:anywhere}.bar{height:8px;background:#f0f0fa;border-radius:8px;overflow:hidden}.bar div{height:100%;background:#6a68e2;border-radius:8px}.channel-row strong{text-align:right;font-size:11px}.empty{color:var(--muted);text-align:center;padding:24px 10px;font-size:12px}.priorities{display:flex;flex-direction:column;gap:17px}.priority{display:flex;gap:11px;align-items:flex-start}.num{width:30px;height:30px;border-radius:9px;background:var(--primary-light);color:var(--primary);display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0}.priority b,.priority small{display:block}.priority b{font-size:12px;margin:1px 0 4px}.priority small{font-size:11px;color:var(--muted);line-height:1.5}.milestones{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}.milestone{background:#f8f9fc;border-radius:8px;padding:10px 3px;text-align:center}.milestone small{display:block;color:var(--muted);font-size:10px}.milestone b{display:block;font-size:15px;margin-top:4px}.intro{margin:4px 0 20px}.intro h2{font-size:24px;letter-spacing:-.6px;margin:0}label{display:block;color:#555e73;font-size:11px;font-weight:700;margin-bottom:13px}input,select,textarea{display:block;width:100%;margin-top:6px;padding:10px 11px;border:1px solid #dfe3ed;border-radius:7px;background:#fff;color:var(--text);outline:none;font-size:12px;font-weight:400}input:focus,select:focus,textarea:focus{border-color:#9290ee;box-shadow:0 0 0 3px #eeeeff}textarea{resize:vertical;line-height:1.6}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 15px}.span2,.form-actions{grid-column:1/-1}.form-actions,.row-buttons{display:flex;align-items:center;flex-wrap:wrap;gap:10px}.helper{font-size:11px;color:var(--muted);line-height:1.5}.table-tools{display:flex;gap:10px;margin-bottom:12px}.table-tools input{flex:1;margin:0}.table-tools select{max-width:190px;margin:0}.table-wrap{width:100%;overflow-x:auto}table{border-collapse:collapse;width:100%;white-space:nowrap;text-align:left;font-size:11px}th{color:var(--muted);background:#fafbfe;font-weight:700}th,td{padding:11px 9px;border-bottom:1px solid #edf0f5}td{color:#535c72}.delete{background:#fff;border:1px solid var(--border);color:var(--red);padding:4px 7px;border-radius:5px;font-size:10px}.budget-lines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}.budget-summary{display:flex;gap:35px;flex-wrap:wrap;padding:16px;background:#f8f9fc;border-radius:9px;margin:5px 0 15px}.budget-summary span,.budget-summary strong{display:block}.budget-summary span{font-size:11px;color:var(--muted)}.budget-summary strong{font-size:20px;margin-top:4px}.day-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.day-card{padding:16px;background:#fff;border:1px solid var(--border);border-radius:11px}.day-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}.day-top span{color:var(--primary);font-weight:800;font-size:11px}.day-top b{font-size:13px}.day-card p{color:#697188;font-size:12px;margin:0;line-height:1.6}.toast{position:fixed;bottom:20px;right:20px;z-index:9;background:#20263a;color:white;padding:12px 17px;border-radius:9px;font-size:12px;display:none;max-width:calc(100vw - 40px)}.toast.show{display:block}footer{text-align:center;color:#9399a9;font-size:10px;padding:18px 0 5px}
+@media(max-width:1050px){.sidebar{width:205px}.main{margin-left:205px;padding:22px 18px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.channel-row{grid-template-columns:100px 1fr 25px}}
+@media(max-width:720px){.sidebar{position:static;width:auto;padding:12px;display:flex;flex-direction:row;flex-wrap:wrap;gap:3px}.brand{width:100%;padding:0 5px 10px}.nav-label,.side-note{display:none}.nav-item{font-size:11px;padding:8px}.main{margin:0;padding:16px 11px}.topbar{align-items:flex-start;flex-direction:column}h1{font-size:23px}.hero{padding:20px}.hero-icon{display:none}.grid,.day-cards{grid-template-columns:1fr}.metrics{gap:8px}.metric{padding:11px}.metric strong{font-size:22px}.milestones{grid-template-columns:repeat(4,minmax(0,1fr))}.form-grid,.budget-lines{grid-template-columns:1fr}.span2,.form-actions{grid-column:auto}.table-tools{flex-direction:column}.table-tools select{max-width:none}}
+
+/* ---------- Premium visual refinement ---------- */
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #172033;
+  --muted: #727d92;
+  --border: #e6eaf2;
+  --primary: #5552d9;
+  --primary-light: #efefff;
+  --green: #168365;
+  --amber: #9a6816;
+  --red: #b64053;
+}
+body {
+  background:
+    radial-gradient(ellipse at 80% -10%, rgba(104, 101, 231, .09), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  letter-spacing: -.08px;
+}
+.sidebar {
+  background: #171b31;
+  border-right: 1px solid #292e48;
+  color: #f7f8ff;
+  padding: 25px 14px;
+}
+.brand { padding-bottom: 34px; }
+.brand-icon {
+  background: linear-gradient(145deg, #8d8aff, #5b57dc);
+  box-shadow: 0 7px 18px rgba(94, 89, 223, .3);
+}
+.brand strong { color: #fff; letter-spacing: -.4px; }
+.brand small { color: #a9b0c9; }
+.nav-label { color: #7e88a7; }
+.nav-item {
+  color: #b6bed4;
+  border: 1px solid transparent;
+  padding: 11px 12px;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.nav-item:hover { background: #252a45; color: #fff; transform: translateX(2px); }
+.nav-item.active {
+  color: #fff;
+  background: linear-gradient(100deg, rgba(105, 101, 235, .3), rgba(105, 101, 235, .12));
+  border-color: rgba(145, 142, 255, .22);
+  box-shadow: inset 3px 0 0 #8e8bff;
+}
+.side-note {
+  background: #20253d;
+  border-color: #343a58;
+  color: #e8ebf7;
+}
+.side-note p { color: #a9b0c9; }
+.main { padding: 30px 36px 22px; }
+.topbar { margin-bottom: 28px; }
+h1 { font-size: 28px; font-weight: 750; letter-spacing: -1px; }
+.eyebrow { letter-spacing: 1.45px; }
+.tag {
+  background: #fff6e5;
+  border: 1px solid #f5e6c5;
+  color: #966311;
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+.btn {
+  border-radius: 9px;
+  transition: all .18s ease;
+}
+.btn:hover { box-shadow: 0 5px 14px rgba(30, 37, 63, .08); }
+.btn-primary {
+  background: linear-gradient(120deg, #5d59df, #4946c3);
+  border-color: #5d59df;
+  box-shadow: 0 5px 12px rgba(89, 86, 214, .18);
+}
+.btn-primary:hover { background: #4643bd; }
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 190px;
+  padding: 32px 34px;
+  background: linear-gradient(115deg, #29265f 0%, #4945b6 48%, #7774ed 100%);
+  box-shadow: 0 16px 34px rgba(64, 61, 155, .18);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 260px; height: 260px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50%;
+  right: -65px; top: -85px;
+  box-shadow: 0 0 0 28px rgba(255,255,255,.035), 0 0 0 58px rgba(255,255,255,.025);
+  pointer-events: none;
+}
+.hero > div { position: relative; z-index: 1; }
+.hero h2 { font-size: clamp(25px, 3vw, 35px); letter-spacing: -1.15px; }
+.hero p { max-width: 520px; }
+.hero-icon {
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.25);
+  box-shadow: 0 8px 22px rgba(25, 22, 74, .12);
+}
+.section-heading { margin-top: 29px; }
+.metric, .panel {
+  border-color: #e7eaf2;
+  box-shadow: 0 5px 18px rgba(32, 42, 73, .035);
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+.metric:hover, .panel:hover { box-shadow: 0 8px 24px rgba(32, 42, 73, .055); }
+.metric { padding: 19px; }
+.metric-label { font-size: 11px; letter-spacing: .15px; }
+.metric strong { font-size: 30px; letter-spacing: -1px; }
+.progress { background: #eeeff8; height: 6px; }
+.progress div { background: linear-gradient(90deg, #7e7bed, #514ed3); border-radius: 8px; }
+.panel { padding: 21px; }
+.panel-heading { margin-bottom: 19px; }
+.panel-heading h3, .section-heading h3 { font-size: 15px; font-weight: 750; }
+.channel-row { grid-template-columns: 135px 1fr 32px; }
+.bar { background: #eeeff8; height: 9px; }
+.bar div { background: linear-gradient(90deg, #9996ff, #5d59dc); }
+.priority-number, .num { background: #efefff; color: #5552d9; }
+.milestone {
+  border: 1px solid #eceef6;
+  background: #fafbfe;
+  padding: 12px 4px;
+}
+.milestone b { color: #393a7d; font-size: 16px; }
+.intro h2 { font-weight: 780; letter-spacing: -.85px; }
+input, select, textarea {
+  border-color: #dfe4ef;
+  border-radius: 9px;
+  padding: 11px 12px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input:hover, select:hover, textarea:hover { border-color: #c6cbe0; }
+table { font-size: 12px; }
+th { background: #f7f8fc; color: #707b92; }
+th, td { padding: 13px 10px; }
+td { color: #49546b; }
+.day-card {
+  box-shadow: 0 4px 15px rgba(32,42,73,.025);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.day-card:hover { transform: translateY(-2px); box-shadow: 0 9px 23px rgba(32,42,73,.06); }
+.day-top span {
+  background: #efefff;
+  border-radius: 6px;
+  padding: 4px 7px;
+}
+.budget-summary {
+  border: 1px solid #e9ebf5;
+  background: linear-gradient(110deg, #f8f8ff, #f8fafc);
+}
+.chip { border: 1px solid #d6f0e5; }
+.empty { line-height: 1.8; }
+.toast { box-shadow: 0 12px 32px rgba(18, 24, 45, .22); }
+footer { padding-top: 24px; }
+@media(max-width:1050px) {
+  .main { padding: 22px 19px; }
+}
+@media(max-width:720px) {
+  .sidebar { background: #171b31; }
+  .main { padding: 17px 11px; }
+  .hero { min-height: auto; }
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><span class="brand-icon">G</span><div><strong>GrowthKit</strong><small>Campus Campaigns</small></div></div>
+  <div class="nav-label">WORKSPACE</div>
+  <button class="nav-item active" data-page="overview">▦ &nbsp; Overview</button>
+  <button class="nav-item" data-page="outreach">✉ &nbsp; Outreach Studio</button>
+  <button class="nav-item" data-page="registrations">♙ &nbsp; Registrations</button>
+  <button class="nav-item" data-page="experiments">⌁ &nbsp; Channel Experiments</button>
+  <button class="nav-item" data-page="budget">₹ &nbsp; Budget Planner</button>
+  <button class="nav-item" data-page="plan">▤ &nbsp; Seven-Day Plan</button>
+  <div class="side-note"><span class="dot"></span> Simulation mode<p>Sample data is illustrative, not actual campaign performance.</p></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><div class="eyebrow">GROWTH WORKSPACE / 2026</div><h1 id="page-title">Campaign Overview</h1></div><div class="top-actions"><span class="tag">SIMULATED CAMPAIGN</span><button class="btn" id="reset">Reset demo</button></div></header>
+<section class="page active" id="overview">
+<div class="hero"><div><div class="eyebrow">NXTWAVE · GROWTH INTERN ASSIGNMENT</div><h2>Build Your First AI Project<br>in 60 Minutes</h2><p>A practical operating workspace for planning, testing, and learning from student acquisition.</p></div><div class="hero-icon">↗</div></div>
+<div class="section-heading"><div><h3>Campaign performance</h3><p>Unique valid registrations against the campaign goal.</p></div><span class="muted">7-day campaign</span></div>
+<div class="metrics">
+<div class="metric"><span class="metric-label">Valid registrations</span><strong id="total">0</strong><small id="percent">0% of target</small><div class="progress"><div id="progress"></div></div></div>
+<div class="metric"><span class="metric-label">Registrations remaining</span><strong id="remaining">500</strong><small>Goal: 500 unique students</small></div>
+<div class="metric"><span class="metric-label">Recorded spend</span><strong id="spend">₹0</strong><small>Maximum budget ₹2,000</small></div>
+<div class="metric"><span class="metric-label">Cost per registration</span><strong id="cpr">—</strong><small>Based on recorded spend</small></div>
+</div>
+<div class="grid"><article class="panel"><div class="panel-heading"><div><h3>Registration sources</h3><p>Valid registrations by channel.</p></div></div><div id="chart" class="channel-chart"><div class="empty">No registrations recorded yet. Add a record to see performance.</div></div></article>
+<article class="panel"><div class="panel-heading"><div><h3>Campaign priorities</h3><p>Next actions for the growth team.</p></div></div><div class="priorities"><div class="priority"><span class="num">01</span><span><b>Activate free channels</b><small>Reach students through clubs and communities.</small></span></div><div class="priority"><span class="num">02</span><span><b>Test before scaling</b><small>Compare registrations before spending more.</small></span></div><div class="priority"><span class="num">03</span><span><b>Optimize daily</b><small>Focus on unique registrations, not views alone.</small></span></div></div></article></div>
+<article class="panel"><div class="panel-heading"><div><h3>Seven-day milestones</h3><p>Proposed cumulative targets, not actual results.</p></div></div><div id="milestones" class="milestones"></div></article>
+</section>
+<section class="page" id="outreach"><div class="intro"><h2>Outreach Studio</h2><p>Create ready-to-share workshop promotions for student channels.</p></div><div class="grid">
+<article class="panel"><div class="panel-heading"><div><h3>Message builder</h3><p>Customize the message for your audience.</p></div></div>
+<label>Channel<select id="outChannel"><option>WhatsApp</option><option>College club</option><option>Student ambassador</option><option>Instagram</option><option>YouTube Shorts</option></select></label>
+<label>Audience<select id="outAudience"><option>Final-year engineering students</option><option>College club leaders</option><option>Class representatives</option><option>Student communities</option></select></label>
+<label>Tone<select id="outTone"><option>Friendly</option><option>Professional</option><option>Energetic</option></select></label>
+<label>Registration link<input id="regLink" placeholder="Paste official registration link"></label><button id="generate" class="btn btn-primary full">Generate message ↗</button></article>
+<article class="panel"><div class="panel-heading"><div><h3>Your message</h3><span class="chip">Editable</span></div></div><textarea id="message" rows="12" placeholder="Your promotional message will appear here."></textarea><div class="row-buttons" style="margin-top:10px"><button id="copy" class="btn btn-primary">Copy message</button><button id="regen" class="btn">Regenerate</button></div><p class="helper">Verify workshop details and insert the official registration link before sharing.</p></article></div></section>
+<section class="page" id="registrations"><div class="intro"><h2>Registration tracker</h2><p>Record unique registrations and understand acquisition sources.</p></div>
+<article class="panel"><div class="panel-heading"><div><h3>Add a registration</h3><p>Use fictional records for the simulation. Avoid entering real student personal data.</p></div></div>
+<form id="regForm" class="form-grid"><label>Student email or demo ID<input id="student" required placeholder="student01@example.test"></label><label>Graduation year<select id="grad"><option>2027</option><option>2026</option><option>2028</option></select></label><label>College<input id="college" required placeholder="College name"></label><label>Acquisition channel<select id="channel"><option>College clubs</option><option>Student communities</option><option>Instagram</option><option>YouTube Shorts</option><option>Paid advertising</option><option>Peer referral</option><option>Unstop</option><option>Other</option></select></label><label>Referral code (optional)<input id="referral" placeholder="e.g. CLUB01"></label><label>Registration date<input id="date" type="date" required></label><div class="form-actions"><button class="btn btn-primary">Add registration</button><span id="regStatus" class="helper" role="status"></span></div></form></article>
+<article class="panel"><div class="panel-heading"><div><h3>Registration records</h3><p>Duplicate identifiers are rejected and not counted.</p></div><button id="export" class="btn">Export CSV ↓</button></div><div class="table-tools"><input id="search" placeholder="Search email, college or referral…"><select id="filter"><option value="">All channels</option></select></div><div class="table-wrap"><table><thead><tr><th>Student ID</th><th>College</th><th>Channel</th><th>Referral</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody id="regRows"><tr><td colspan="7" class="empty">No records yet.</td></tr></tbody></table></div></article></section>
+<section class="page" id="experiments"><div class="intro"><h2>Channel experiments</h2><p>Record what you test, what you observe, and what you decide next.</p></div>
+<article class="panel"><div class="panel-heading"><div><h3>Record an experiment</h3><p>Enter hypothetical values unless you have actual campaign results.</p></div></div>
+<form id="expForm" class="form-grid"><label>Channel<select id="expChannel"><option>College clubs</option><option>Student communities</option><option>Instagram</option><option>YouTube Shorts</option><option>Paid advertising</option><option>Peer referral</option><option>Unstop</option></select></label><label>Experiment name<input id="expName" required placeholder="e.g. AI project demo Reel"></label><label>Spend (₹)<input id="expSpend" type="number" min="0" max="2000" value="0" required></label><label>Reach / views (optional)<input id="expReach" type="number" min="0" placeholder="Unknown is okay"></label><label>Link clicks (optional)<input id="expClicks" type="number" min="0" placeholder="Unknown is okay"></label><label>Valid registrations<input id="expRegs" type="number" min="0" value="0" required></label><label class="span2">Hypothesis<textarea id="expHypothesis" rows="2" placeholder="What do you expect and why?"></textarea></label><label class="span2">Observation / next decision<textarea id="expNotes" rows="2" placeholder="What did you learn? What would you do next?"></textarea></label><div class="form-actions"><button class="btn btn-primary">Save experiment</button><span id="expStatus" class="helper"></span></div></form></article>
+<article class="panel"><div class="panel-heading"><div><h3>Experiment log</h3><p>Cost per registration is shown when meaningful.</p></div></div><div class="table-wrap"><table><thead><tr><th>Channel</th><th>Experiment</th><th>Spend</th><th>Registrations</th><th>Cost / registration</th><th>Next decision</th><th></th></tr></thead><tbody id="expRows"><tr><td colspan="7" class="empty">No experiments recorded.</td></tr></tbody></table></div></article></section>
+<section class="page" id="budget"><div class="intro"><h2>Budget planner</h2><p>Protect the budget by testing small before scaling.</p></div><article class="panel"><div class="panel-heading"><div><h3>Proposed allocation</h3><p>Editable budget plan — not actual spending.</p></div><span class="chip">Limit ₹2,000</span></div><form id="budgetForm"><div class="budget-lines"><label>Initial paid-ad test (₹)<input id="bTest" type="number" min="0" value="500" required></label><label>Possible ad scaling (₹)<input id="bScale" type="number" min="0" value="1000" required></label><label>Optional materials (₹)<input id="bMaterials" type="number" min="0" value="300" required></label><label>Reserve (₹)<input id="bReserve" type="number" min="0" value="200" required></label></div><div class="budget-summary"><div><span>Total allocation</span><strong id="bTotal">₹2,000</strong></div><div><span>Budget remaining</span><strong id="bRemaining">₹0</strong></div></div><div id="bWarning" class="helper"></div><button class="btn btn-primary" style="margin-top:12px">Save allocation</button></form></article><article class="panel"><div class="panel-heading"><div><h3>Recorded spend</h3><p>Based on saved experiments, not planned allocation.</p></div></div><div id="spendBreakdown" class="empty">No recorded spend yet.</div></article></section>
+<section class="page" id="plan"><div class="intro"><h2>Seven-day campaign plan</h2><p>Daily activities and cumulative registration milestones.</p></div><div id="dayCards" class="day-cards"></div><article class="panel"><div class="panel-heading"><div><h3>Growth decision rules</h3><p>What to do when results arrive.</p></div></div><div class="priorities"><div class="priority"><span class="num">01</span><span><b>Free channels work</b><small>Continue them; keep paid budget unspent where possible.</small></span></div><div class="priority"><span class="num">02</span><span><b>Ads generate valid registrations</b><small>Scale gradually only when cost and volume justify it.</small></span></div><div class="priority"><span class="num">03</span><span><b>Views do not convert</b><small>Review the message, audience, and registration flow before spending more.</small></span></div><div class="priority"><span class="num">04</span><span><b>Results fall behind target</b><small>Investigate distribution and conversion; do not fabricate results.</small></span></div></div></article></section>
+<footer>Campus Growth Toolkit · NxtWave Growth Intern assignment · Simulation only</footer>
+</main></div><div id="toast" class="toast" role="status"></div>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const TARGET=500, LIMIT=2000;
+const titles={overview:'Campaign Overview',outreach:'Outreach Studio',registrations:'Registration Tracker',experiments:'Channel Experiments',budget:'Budget Planner',plan:'Seven-Day Plan'};
+const days=[
+['Day 1','Prepare and launch','Finalize the registration link, tracking, messages, and first Reel; contact campus representatives.',40],
+['Day 2','Test free channels','Share through willing student representatives and relevant communities. Review early registrations.',100],
+['Day 3','Review and decide','Compare source performance and test a small paid campaign only if justified.',180],
+['Day 4','Expand what works','Increase effort on promising campus and community channels.',260],
+['Day 5','Add peer referrals','Publish another short video and encourage registered students to share.',340],
+['Day 6','Focused follow-up','Send appropriate reminders and concentrate on the strongest sources.',420],
+['Day 7','Final review','Final reminder, validate unique registrations, and compare results with the target.',500]
+];
+const defaultBudget={test:500,scale:1000,materials:300,reserve:200};
+const blankData=()=>({registrations:[],experiments:[],budget:{...defaultBudget}});
+let data;
+try{data=JSON.parse(localStorage.getItem('campusGrowthToolkitV1')||'null')}catch{data=null}
+if(!data||!Array.isArray(data.registrations)||!Array.isArray(data.experiments))data=blankData();
+data.budget={...defaultBudget,...(data.budget||{})};
+function persist(){try{localStorage.setItem('campusGrowthToolkitV1',JSON.stringify(data))}catch{toast('Browser storage unavailable. Export your records to keep a copy.')}}
+function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2600)}
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
+function safe(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function validRegs(){return data.registrations.filter(r=>r.status==='Valid')}
+function spend(){return data.experiments.reduce((sum,e)=>sum+Number(e.spend||0),0)}
+function nav(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('page-title').textContent=titles[page]||'Campaign Overview';if(page==='budget')renderBudget();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.page)));
+$('date').value=new Date().toISOString().slice(0,10);
+function renderMilestones(){$('milestones').innerHTML=days.map(d=>`<div class="milestone"><small>${d[0]}</small><b>${d[3]}</b></div>`).join('')}
+function renderDays(){$('dayCards').innerHTML=days.map(d=>`<article class="day-card"><div class="day-top"><span>${d[0].toUpperCase()}</span><b>Target: ${d[3]}</b></div><p><strong>${d[1]}</strong><br>${d[2]}</p></article>`).join('')}
+function renderDashboard(){
+ const regs=validRegs(),total=regs.length,s=spend(),pct=Math.min(100,total/TARGET*100);
+ $('total').textContent=total.toLocaleString('en-IN');$('remaining').textContent=Math.max(0,TARGET-total).toLocaleString('en-IN');$('percent').textContent=pct.toFixed(1)+'% of target';$('progress').style.width=pct+'%';$('spend').textContent=money(s);$('cpr').textContent=total>0&&s>0?money(s/total):'—';
+ const counts={};regs.forEach(r=>counts[r.channel]=(counts[r.channel]||0)+1);const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+ $('chart').innerHTML=entries.length?entries.map(([name,n])=>`<div class="channel-row"><span>${safe(name)}</span><div class="bar"><div style="width:${Math.max(3,n/Math.max(...entries.map(x=>x[1]))*100)}%"></div></div><strong>${n}</strong></div>`).join(''):'<div class="empty">No registrations recorded yet.<br>Add a record to see channel performance.</div>';
+}
+function updateFilter(){const old=$('filter').value;const channels=[...new Set(data.registrations.map(r=>r.channel))].sort();$('filter').innerHTML='<option value="">All channels</option>'+channels.map(c=>`<option>${safe(c)}</option>`).join('');$('filter').value=channels.includes(old)?old:''}
+function renderRegistrations(){
+ updateFilter();const q=$('search').value.trim().toLowerCase(),f=$('filter').value;
+ const list=[...data.registrations].reverse().filter(r=>(!f||r.channel===f)&&[r.id,r.college,r.referral,r.channel].some(v=>String(v||'').toLowerCase().includes(q)));
+ $('regRows').innerHTML=list.length?list.map(r=>`<tr><td>${safe(r.id)}</td><td>${safe(r.college)}</td><td>${safe(r.channel)}</td><td>${safe(r.referral||'—')}</td><td>${safe(r.date)}</td><td><span class="${r.status==='Valid'?'chip':'tag'}">${safe(r.status)}</span></td><td><button class="delete" data-del-reg="${safe(r.key)}">Delete</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">No matching records.</td></tr>';
+}
+function renderExperiments(){
+ $('expRows').innerHTML=data.experiments.length?[...data.experiments].reverse().map(e=>`<tr><td>${safe(e.channel)}</td><td>${safe(e.name)}</td><td>${money(e.spend)}</td><td>${Number(e.regs)}</td><td>${Number(e.regs)>0?money(Number(e.spend)/Number(e.regs)):'—'}</td><td>${safe(e.notes||'Review results')}</td><td><button class="delete" data-del-exp="${safe(e.key)}">Delete</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">No experiments recorded.</td></tr>';
+}
+function renderBudget(){
+ const b=data.budget;[['bTest','test'],['bScale','scale'],['bMaterials','materials'],['bReserve','reserve']].forEach(([id,k])=>$(id).value=b[k]);
+ const total=Object.values(b).reduce((s,n)=>s+Number(n||0),0);$('bTotal').textContent=money(total);$('bRemaining').textContent=money(LIMIT-total);$('bWarning').textContent=total>LIMIT?'Allocation exceeds the ₹2,000 limit. Reduce one or more amounts.':`₹${(LIMIT-total).toLocaleString('en-IN')} remains unallocated. Planned allocation is not actual spend.`;$('bWarning').style.color=total>LIMIT?'var(--red)':'var(--muted)';
+ const ex=data.experiments.filter(e=>Number(e.spend)>0);$('spendBreakdown').innerHTML=ex.length?ex.map(e=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>${safe(e.channel)} · ${safe(e.name)}</span><strong>${money(e.spend)}</strong></div>`).join(''):`<div class="empty">No recorded spend yet. Planned budget is not recorded spending.</div>`;
+}
+function render(){renderDashboard();renderRegistrations();renderExperiments();renderBudget();renderMilestones();renderDays()}
+$('regForm').addEventListener('submit',e=>{
+ e.preventDefault();const id=$('student').value.trim().toLowerCase(),college=$('college').value.trim();
+ if(!id||!college){$('regStatus').textContent='Enter the required fields.';return}
+ if(data.registrations.some(r=>r.id.toLowerCase()===id&&r.status==='Valid')){$('regStatus').textContent='Duplicate: this identifier is already registered.';toast('Duplicate registration rejected.');return}
+ data.registrations.push({key:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),id:$('student').value.trim(),grad:$('grad').value,college,channel:$('channel').value,referral:$('referral').value.trim(),date:$('date').value,status:'Valid'});
+ persist();$('regStatus').textContent='Registration added.';$('regForm').reset();$('date').value=new Date().toISOString().slice(0,10);render();toast('Registration saved.');
+});
+$('regRows').addEventListener('click',e=>{const b=e.target.closest('[data-del-reg]');if(!b)return;if(confirm('Delete this registration record?')){data.registrations=data.registrations.filter(r=>r.key!==b.dataset.delReg);persist();render();toast('Record deleted.')}});
+$('search').addEventListener('input',renderRegistrations);$('filter').addEventListener('change',renderRegistrations);
+$('export').addEventListener('click',()=>{
+ const rows=[['Student ID','Graduation year','College','Channel','Referral','Date','Status'],...data.registrations.map(r=>[r.id,r.grad,r.college,r.channel,r.referral,r.date,r.status])];
+ const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');download('campus-growth-registrations.csv',csv,'text/csv');toast('CSV exported.');
+});
+function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+$('expForm').addEventListener('submit',e=>{
+ e.preventDefault();const spendValue=Number($('expSpend').value),regs=Number($('expRegs').value);
+ if(spendValue<0||spendValue>LIMIT||regs<0){$('expStatus').textContent='Check spend and registration values.';return}
+ data.experiments.push({key:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),channel:$('expChannel').value,name:$('expName').value.trim(),spend:spendValue,reach:$('expReach').value===''?null:Number($('expReach').value),clicks:$('expClicks').value===''?null:Number($('expClicks').value),regs,hypothesis:$('expHypothesis').value.trim(),notes:$('expNotes').value.trim()});
+ persist();$('expStatus').textContent='Experiment saved.';$('expForm').reset();$('expSpend').value=0;$('expRegs').value=0;render();toast('Experiment saved.');
+});
+$('expRows').addEventListener('click',e=>{const b=e.target.closest('[data-del-exp]');if(!b)return;if(confirm('Delete this experiment?')){data.experiments=data.experiments.filter(x=>x.key!==b.dataset.delExp);persist();render();toast('Experiment deleted.')}});
+function saveBudget(e){if(e)e.preventDefault();const b={test:Number($('bTest').value),scale:Number($('bScale').value),materials:Number($('bMaterials').value),reserve:Number($('bReserve').value)};if(Object.values(b).some(n=>!Number.isFinite(n)||n<0)){toast('Budget amounts must be zero or higher.');return}if(Object.values(b).reduce((s,n)=>s+n,0)>LIMIT){toast('Allocation exceeds ₹2,000. Reduce the amounts.');return}data.budget=b;persist();renderBudget();toast('Budget allocation saved.')}
+$('budgetForm').addEventListener('submit',saveBudget);['bTest','bScale','bMaterials','bReserve'].forEach(id=>$(id).addEventListener('input',()=>{const b={test:Number($('bTest').value||0),scale:Number($('bScale').value||0),materials:Number($('bMaterials').value||0),reserve:Number($('bReserve').value||0)};const t=Object.values(b).reduce((s,n)=>s+n,0);$('bTotal').textContent=money(t);$('bRemaining').textContent=money(LIMIT-t);$('bWarning').textContent=t>LIMIT?'Allocation exceeds the ₹2,000 limit.':`₹${(LIMIT-t).toLocaleString('en-IN')} remains unallocated.`;$('bWarning').style.color=t>LIMIT?'var(--red)':'var(--muted)'}));
+function makeMessage(){
+ const channel=$('outChannel').value,audience=$('outAudience').value,tone=$('outTone').value,link=$('regLink').value.trim()||'[INSERT OFFICIAL REGISTRATION LINK]';
+ const opener=tone==='Professional'?'Hello,':tone==='Energetic'?'🚀 Ready to build something with AI?':'Hey!';
+ const cta=channel==='Instagram'||channel==='YouTube Shorts'?'Register using the link in the post/bio:':'Register here:';
+ $('message').value=`${opener}\n\n${audience}: join the free online workshop “Build Your First AI Project in 60 Minutes.”\n\nLearn by building, get practical exposure to AI, and explore how to start your first AI project — no workshop fee.\n\n${cta} ${link}\n\nPlease check the official event details and registration requirements before signing up.\n\n${channel==='College club'?'Could your club share this opportunity with interested students?':channel==='Student ambassador'?'Please share this with interested classmates and use your assigned referral code if applicable.':'Feel free to share with a friend who is interested in AI.'}`;
+ $('copy-status')?.replaceChildren();
+}
+$('generate').addEventListener('click',()=>{makeMessage();toast('Message generated. Review before sharing.')});
+$('regen').addEventListener('click',()=>{makeMessage();toast('Message refreshed.')});
+$('copy').addEventListener('click',async()=>{if(!$('message').value.trim()){makeMessage()}try{await navigator.clipboard.writeText($('message').value);toast('Message copied.')}catch{ $('message').select();try{document.execCommand('copy');toast('Message copied.')}catch{toast('Select the message and copy it manually.')}}});
+$('reset').addEventListener('click',()=>{if(confirm('Reset all demo registrations, experiments and budget settings? Export anything you need first.')){data=blankData();persist();$('regForm').reset();$('expForm').reset();$('date').value=new Date().toISOString().slice(0,10);$('search').value='';render();toast('Demo data reset.')}});
+render();
+})();
+</script>
+</body>
+</html>
