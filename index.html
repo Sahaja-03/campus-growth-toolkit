@@ -194,6 +194,7 @@ footer { padding-top: 24px; }
 <header class="topbar"><div><div class="eyebrow">GROWTH WORKSPACE / 2026</div><h1 id="page-title">Campaign Overview</h1></div><div class="top-actions"><span class="tag">SIMULATED CAMPAIGN</span><button class="btn" id="reset">Reset demo</button></div></header>
 <section class="page active" id="overview">
 <div class="hero"><div><div class="eyebrow">NXTWAVE · GROWTH INTERN ASSIGNMENT</div><h2>Build Your First AI Project<br>in 60 Minutes</h2><p>A practical operating workspace for planning, testing, and learning from student acquisition.</p></div><div class="hero-icon">↗</div></div>
+<div style="margin:12px 0;padding:10px 12px;border:1px solid #e8c56a;background:#fff8df;border-radius:10px;color:#6d5310;font-size:12px"><strong>DEMO DATA — NOT REAL CAMPAIGN RESULTS.</strong> Sample records are loaded for demonstration. New edits are saved only in this browser and do not sync across users.</div>
 <div class="section-heading"><div><h3>Campaign performance</h3><p>Unique valid registrations against the campaign goal.</p></div><span class="muted">7-day campaign</span></div>
 <div class="metrics">
 <div class="metric"><span class="metric-label">Valid registrations</span><strong id="total">0</strong><small id="percent">0% of target</small><div class="progress"><div id="progress"></div></div></div>
@@ -241,11 +242,29 @@ const days=[
 ];
 const defaultBudget={test:500,scale:1000,materials:300,reserve:200};
 const blankData=()=>({registrations:[],experiments:[],budget:{...defaultBudget}});
+const demoData=()=>({
+ registrations:[
+  {key:'demo-reg-1',id:'DEMO-STUDENT-001',grad:'2027',college:'Demo Engineering College A',channel:'College clubs',referral:'CLUB-DEMO',date:'2026-10-29',status:'Valid'},
+  {key:'demo-reg-2',id:'DEMO-STUDENT-002',grad:'2027',college:'Demo Engineering College A',channel:'College clubs',referral:'CLUB-DEMO',date:'2026-10-29',status:'Valid'},
+  {key:'demo-reg-3',id:'DEMO-STUDENT-003',grad:'2027',college:'Demo Engineering College B',channel:'Student communities',referral:'GROUP-DEMO',date:'2026-10-29',status:'Valid'},
+  {key:'demo-reg-4',id:'DEMO-STUDENT-004',grad:'2027',college:'Demo Engineering College B',channel:'Instagram',referral:'REEL-DEMO',date:'2026-10-29',status:'Valid'},
+  {key:'demo-reg-5',id:'DEMO-STUDENT-005',grad:'2027',college:'Demo Engineering College C',channel:'YouTube Shorts',referral:'SHORTS-DEMO',date:'2026-10-29',status:'Valid'}
+ ],
+ experiments:[
+  {key:'demo-exp-1',channel:'College clubs',name:'Demo: club message test',spend:0,reach:50,clicks:8,regs:2,hypothesis:'Illustrative hypothesis: club sharing may reach relevant students.',notes:'DEMO ONLY — not an actual test.'},
+  {key:'demo-exp-2',channel:'Student communities',name:'Demo: community post',spend:0,reach:40,clicks:5,regs:1,hypothesis:'Illustrative hypothesis: relevant groups may bring registrations.',notes:'DEMO ONLY — not an actual test.'},
+  {key:'demo-exp-3',channel:'Instagram',name:'Demo: short video',spend:100,reach:200,clicks:10,regs:1,hypothesis:'Illustrative hypothesis: a short video may create interest.',notes:'DEMO ONLY — spend and results are fictional.'},
+  {key:'demo-exp-4',channel:'YouTube Shorts',name:'Demo: repurposed short',spend:0,reach:100,clicks:4,regs:1,hypothesis:'Illustrative hypothesis: repurposed video may reach more students.',notes:'DEMO ONLY — not an actual test.'}
+ ],budget:{...defaultBudget}
+});
 let data;
-try{data=JSON.parse(localStorage.getItem('campusGrowthToolkitV1')||'null')}catch{data=null}
-if(!data||!Array.isArray(data.registrations)||!Array.isArray(data.experiments))data=blankData();
+let loadedSavedData=false;
+try{data=JSON.parse(localStorage.getItem('campusGrowthToolkitV2')||'null');loadedSavedData=!!data}catch{data=null}
+if(!data||!Array.isArray(data.registrations)||!Array.isArray(data.experiments))data=demoData();
+else if(!loadedSavedData)data=demoData();
 data.budget={...defaultBudget,...(data.budget||{})};
-function persist(){try{localStorage.setItem('campusGrowthToolkitV1',JSON.stringify(data))}catch{toast('Browser storage unavailable. Export your records to keep a copy.')}}
+if(!localStorage.getItem('campusGrowthToolkitV2')){try{localStorage.setItem('campusGrowthToolkitV2',JSON.stringify(data))}catch{}}
+function persist(){try{localStorage.setItem('campusGrowthToolkitV2',JSON.stringify(data))}catch{toast('Browser storage unavailable. Export your records to keep a copy.')}}
 function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2600)}
 function money(n){return '₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
 function safe(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -310,7 +329,7 @@ function makeMessage(){
 $('generate').addEventListener('click',()=>{makeMessage();toast('Message generated. Review before sharing.')});
 $('regen').addEventListener('click',()=>{makeMessage();toast('Message refreshed.')});
 $('copy').addEventListener('click',async()=>{if(!$('message').value.trim()){makeMessage()}try{await navigator.clipboard.writeText($('message').value);toast('Message copied.')}catch{ $('message').select();try{document.execCommand('copy');toast('Message copied.')}catch{toast('Select the message and copy it manually.')}}});
-$('reset').addEventListener('click',()=>{if(confirm('Reset all demo registrations, experiments and budget settings? Export anything you need first.')){data=blankData();persist();$('regForm').reset();$('expForm').reset();$('date').value=new Date().toISOString().slice(0,10);$('search').value='';render();toast('Demo data reset.')}});
+$('reset').addEventListener('click',()=>{if(confirm('Reset all demo registrations, experiments and budget settings? Export anything you need first.')){data=demoData();persist();$('regForm').reset();$('expForm').reset();$('date').value=new Date().toISOString().slice(0,10);$('search').value='';render();toast('Sample demo data restored.')}});
 render();
 })();
 </script>
